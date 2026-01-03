@@ -71,7 +71,12 @@ Egy ESP32 mikrokontrollerre épülő "űrszonda" stílusú környezeti monitor, 
 
 ### Képernyők (lapozhatók)
 
-1. **Dashboard** - Összesített nézet:
+1. **PHOTON 7 Logo** - Sci-fi splash képernyő:
+   - "PHOTON 7" felirat függőlegesen, fentről lefelé
+   - Futurisztikus, szögletes sci-fi betűstílus
+   - Enyhe animációs effekt (opcionális villogás/fade)
+
+2. **Dashboard** - Összesített nézet:
    - P-7 fejléc pulzáló jelzőfénnyel
    - Fényerő grafikon (élő)
    - Forgó radar animáció

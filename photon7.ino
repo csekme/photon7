@@ -33,6 +33,7 @@ const int messageCount = 6;
 
 // === KÉPERNYŐK ===
 enum Screen {
+  SCREEN_LOGO,
   SCREEN_DASHBOARD,
   SCREEN_TEMP,
   SCREEN_HUMIDITY,
@@ -573,6 +574,49 @@ void drawScreenLight() {
   display.display();
 }
 
+void drawScreenLogo() {
+  display.clearDisplay();
+  
+  // PHOTON 7 - minden 2-es méretben, középre igazítva, függőlegesen
+  display.setTextSize(2);
+  
+  const char* letters = "PHOTON7";
+  int y = 2;
+  for (int i = 0; letters[i] != '\0'; i++) {
+    // Középre igazítás: 2-es méret = 12px széles karakter, képernyő 32px
+    display.setCursor(10, y);
+    display.print(letters[i]);
+    y += 18;  // Nagyobb távolság, ne érjenek össze
+  }
+  
+  // Futó fények bal és jobb oldalon - ellentétes irányba
+  int leftPos = (animFrame * 3) % 128;          // Lefelé fut
+  int rightPos = 127 - ((animFrame * 3) % 128); // Felfelé fut
+  
+  // Bal oldali fénycsík (lefelé) - hosszabb csóva
+  for (int i = 0; i < 20; i++) {
+    int yy = leftPos - i;
+    if (yy >= 0 && yy < 128) {
+      display.drawPixel(1, yy, SSD1306_WHITE);
+      if (i < 12) display.drawPixel(2, yy, SSD1306_WHITE);
+      if (i < 6) display.drawPixel(0, yy, SSD1306_WHITE);
+    }
+  }
+  
+  // Jobb oldali fénycsík (felfelé) - hosszabb csóva
+  for (int i = 0; i < 20; i++) {
+    int yy = rightPos + i;
+    if (yy >= 0 && yy < 128) {
+      display.drawPixel(30, yy, SSD1306_WHITE);
+      if (i < 12) display.drawPixel(29, yy, SSD1306_WHITE);
+      if (i < 6) display.drawPixel(31, yy, SSD1306_WHITE);
+    }
+  }
+  
+  display.setTextSize(1);
+  display.display();
+}
+
 void drawNightScreen() {
   display.clearDisplay();
   
@@ -615,6 +659,9 @@ void updateDisplay() {
   }
   
   switch (currentScreen) {
+    case SCREEN_LOGO:
+      drawScreenLogo();
+      break;
     case SCREEN_DASHBOARD:
       drawScreenDashboard();
       break;
